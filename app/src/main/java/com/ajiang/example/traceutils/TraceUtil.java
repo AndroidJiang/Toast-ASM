@@ -1,11 +1,11 @@
-package com.xuexuan.androidaop.traceutils;
+package com.ajiang.example.traceutils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
 
-import com.dovar.dtoast.DToast;
+import com.dovar.dtoast.inner.DovaToast;
 
 import will.github.com.xuexuan.androidaop.R;
 
@@ -45,8 +45,8 @@ public class TraceUtil {
         Log.e("ajiang","showToast"+context+text+duration);
 //        Toast.makeText(context, "Custom Toast: " + text, duration).show();//防止死循环
         // 直接创建 Toast 对象，避免调用 Toast.makeText()
-        DToast.make(context)
-                .setText(R.id.tv_content_default, text.toString())
+        new DovaToast(context)
+                .setText(R.id.tv_content_default, "修改后的toast"+text)
                 .setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 30)
                 .show();
     }

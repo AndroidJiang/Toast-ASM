@@ -1,4 +1,4 @@
-package com.xuexuan.androidaop;
+package com.ajiang.example;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ,  " !!!!!!"
                 , Toast.LENGTH_LONG).show();
         tv_jump.setOnClickListener(this);
-
     }
 
 
