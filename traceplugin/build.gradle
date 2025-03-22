@@ -1,0 +1,43 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+
+dependencies {
+    compileOnly gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.4.1'
+    implementation 'org.ow2.asm:asm:7.1'
+//    implementation 'org.ow2.asm:asm-commons:5.0.3'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+gradlePlugin {
+    plugins {
+        asmPlugin { // 插件名称的标识符（可以自定义）
+            id = 'com.example.asmplugin' // 插件名称
+            implementationClass = 'com.example.asmplugin.AsmPlugin' // 插件的实现类
+        }
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        repository(url: LOCAL_REPO_URL)
+//        pom.groupId = PROJ_GROUP
+//        pom.artifactId = PROJ_ARTIFACTID
+//        pom.version = PROJ_VERSION
+//    }
+//}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri("${rootProject.projectDir}/repo")) // 发布到项目根目录下的 repo 目录
+            pom.groupId = 'com.example'
+            pom.artifactId = 'asm-plugin'
+            pom.version = '1.0.0'
+        }
+    }
+}
