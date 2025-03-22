@@ -22,7 +22,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this
                 ,  " !!!!!!"
                 , Toast.LENGTH_LONG).show();
+        Toast toast = Toast.makeText(this
+                , " !!!!!!"
+                , Toast.LENGTH_LONG);
+        toast.show();
         tv_jump.setOnClickListener(this);
+//        new DovaToast(this)
+//                .setText(R.id.tv_content_default, "@@@@@")
+//                .setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 30)
+//                .show();
     }
 
 

@@ -90,7 +90,6 @@ class MyTransform : Transform() {
     }
 
     private fun processDirectory(dirInput: DirectoryInput, outputProvider: TransformOutputProvider) {
-        println("1")
         val outputDir = outputProvider.getContentLocation(
             dirInput.name, dirInput.contentTypes, dirInput.scopes, Format.DIRECTORY
         )
@@ -104,7 +103,6 @@ class MyTransform : Transform() {
     fun modifyClassFile(classFile: File) {
         val classReader = ClassReader(classFile.readBytes()) // 读取.class文件
         val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS) // 创建ClassWriter
-        println("2")
         val classVisitor = MyClassVisitor(classWriter) // 自定义ClassVisitor
         classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES) // 访问并修改字节码
 

@@ -16,6 +16,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        additionalParameters = ["--debug"] // 启用 Dex 编译器的调试信息
+    }
 
 }
 
