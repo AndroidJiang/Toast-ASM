@@ -10,9 +10,19 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            storeFile file('../key/gamehall_ophone_key.keystore')
+            storePassword "1234567890"
+            keyAlias "gamehall_ophone"
+            keyPassword "1234567890"
+        }
+
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.config
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -20,9 +30,8 @@ android {
         additionalParameters = ["--debug"] // 启用 Dex 编译器的调试信息
     }
 
+
 }
-
-
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

@@ -40,6 +40,7 @@ public class TraceUtil {
     }
     private static boolean isReplacing = false;
 
+
     public static void showToast(Context context, CharSequence text, int duration) {
         // 实现自定义的 Toast 逻辑
         Log.e("ajiang","showToast"+context+text+duration);
