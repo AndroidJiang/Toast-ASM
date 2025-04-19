@@ -37,7 +37,7 @@ uploadArchives {
             repository(url: uri("${rootProject.projectDir}/repo")) // 发布到项目根目录下的 repo 目录
             pom.groupId = 'com.example'
             pom.artifactId = 'asm-plugin'
-            pom.version = '1.0.0'
+            pom.version = '1.1.0'
         }
     }
 }

@@ -1,1 +1,58 @@
 include ':app', ':traceplugin'
+
+
+//初始化--setting开始记录时间
+long beginOfSetting = System.currentTimeMillis()
+
+//初始化--setting结束计算时间
+gradle.projectsLoaded {
+    println '初始化阶段======，耗时：' + (System.currentTimeMillis() - beginOfSetting) + 'ms'
+}
+
+def beginOfConfig
+def configHasBegin = false
+def beginOfProjectConfig = new HashMap()
+//配置--每个project开始时间
+gradle.beforeProject { project ->
+    if (!configHasBegin) {
+        configHasBegin = true
+        beginOfConfig = System.currentTimeMillis()
+    }
+    beginOfProjectConfig.put(project, System.currentTimeMillis())
+}
+//配置--每个project时间（根build、app、module）
+gradle.afterProject { project ->
+    def begin = beginOfProjectConfig.get(project)
+    println '配置阶段，' + project + '耗时：' + (System.currentTimeMillis() - begin) + 'ms'
+}
+def beginOfProjectExcute
+//配置--task任务建立图
+gradle.taskGraph.whenReady {
+    println '配置阶段=======，总共耗时：' + (System.currentTimeMillis() - beginOfConfig) + 'ms'
+    beginOfProjectExcute = System.currentTimeMillis()
+}
+//执行--task任务时间
+gradle.taskGraph.beforeTask { task ->
+    task.doFirst {
+        task.ext.beginOfTask = System.currentTimeMillis()
+    }
+    task.doLast {
+        println '执行阶段，' + task + '耗时：' + (System.currentTimeMillis() - task.beginOfTask) + 'ms'
+    }
+}
+gradle.buildFinished {
+    println '执行阶段======，耗时：' + (System.currentTimeMillis() - beginOfProjectExcute) + 'ms'
+}
+
+
+//获取本地属性
+def text(){
+    Properties properties = new Properties()
+    File propertyFile = new File(rootDir.getAbsolutePath() + "/local.properties")
+    properties.load(propertyFile.newDataInputStream())
+
+    gradle.ext.api = properties.getProperty('sdk.api')
+
+    println(gradle.api)
+}
+//text()

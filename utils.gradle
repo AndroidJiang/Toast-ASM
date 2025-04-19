@@ -1,0 +1,13 @@
+// 自定义公共gradle方法，提供給其他gradle使用
+// 这个方法取出AndroidManifest.xml中的包名
+def getxmlpackage(boolean x){
+// 注释1 此处的 project 是指的那个project？
+    def file=new File(project.getProjectDir().getPath()+"/app/src/main/AndroidManifest.xml");
+    def paser = new XmlParser().parse(file)
+    return paser.@package
+}
+//注释2 此处的ext 是谁的ext？
+ext{
+    //除了这种赋值ext.xxx=xxx，还有这种闭包形式的赋值
+    getpackage = this.&getxmlpackage
+}
